@@ -1,0 +1,47 @@
+<!--<div *ngFor="let device of deviceList">-->
+  <!--<span>Bus Number: {{device.busNumber}}</span>-->
+  <!--<span>Address: {{device.deviceAddress}}</span>-->
+  <!--<span>pid: {{device.deviceDescriptor.idProduct}}</span>-->
+  <!--<span>pid: {{device.deviceDescriptor.idVendor}}</span>-->
+<!--</div>-->
+
+<div class="example-container mat-elevation-z8" *ngIf="isLoaded">
+  <mat-table #table [dataSource]="deviceList">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="busNumber">
+      <mat-header-cell *matHeaderCellDef> Bus Number </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.busNumber}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="deviceAddress">
+      <mat-header-cell *matHeaderCellDef> Device Address </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.deviceAddress}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="pid">
+      <mat-header-cell *matHeaderCellDef> PID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.idProduct}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="vid">
+      <mat-header-cell *matHeaderCellDef> VID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.idVendor}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="portNumbers">
+      <mat-header-cell *matHeaderCellDef> Port Numbers </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.portNumbers && element.portNumbers.join(' | ')}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
