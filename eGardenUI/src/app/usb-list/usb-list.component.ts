@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from "../data.service";
+import {SocketConnectionService} from "../socket-connection.service";
 import {IUsbDevice} from "../interfaces/i-usb-device";
-import {HttpEvent} from "@angular/common/http";
 
 @Component({
   selector: 'app-usb-list',
   templateUrl: './usb-list.component.html',
   styleUrls: ['./usb-list.component.scss'],
-  providers: [DataService]
+  providers: [DataService, SocketConnectionService]
 })
 export class UsbListComponent implements OnInit {
   deviceList: IUsbDevice[] = [];
@@ -15,6 +15,7 @@ export class UsbListComponent implements OnInit {
   isLoaded: boolean = false;
 
   constructor(public dataService: DataService) {
+
   }
 
   ngOnInit() {
