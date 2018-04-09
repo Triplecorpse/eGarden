@@ -1,9 +1,15 @@
 <form>
   <div class="row">
     <div class="col-md-4">
-      <mat-form-field>
-        <input matInput type="text" id="red" placeholder="HEX color without #" [(ngModel)]="color" (input)="changeColor()" name="color">
-      </mat-form-field>
+      <div>
+        <mat-slider class="color-red" (input)="onColorChange($event, 'r')" min="0" max="255" step="1" #red></mat-slider>
+      </div>
+      <div>
+        <mat-slider class="color-red" (input)="onColorChange($event, 'g')" min="0" max="255" step="1" #green></mat-slider>
+      </div>
+      <div>
+        <mat-slider class="color-red" (input)="onColorChange($event, 'b')" min="0" max="255" step="1" #blue></mat-slider>
+      </div>
     </div>
   </div>
 </form>

@@ -1,9 +1,9 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {MatInputModule, MatFormFieldModule} from "@angular/material";
+import {MatInputModule, MatFormFieldModule, MatSliderModule, GestureConfig} from "@angular/material";
 import { LightComponent } from './light/light.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule} from "@angular/forms";
@@ -19,9 +19,10 @@ import {FormsModule} from "@angular/forms";
     MatInputModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatSliderModule
   ],
-  providers: [],
+  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
