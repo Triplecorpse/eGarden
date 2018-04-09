@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {IUsbDevice} from "./interfaces/i-usb-device";
 
 @Injectable()
 export class DataService {
@@ -9,7 +8,7 @@ export class DataService {
   constructor(public httpClient: HttpClient) { }
 
   getUsbDeviceList(options?) {
-    return this.httpClient.get<IUsbDevice[]>(this.usbDeviceList, options || {});
+    // return this.httpClient.get<IUsbDevice[]>(this.usbDeviceList, options || {});
   }
 
 }

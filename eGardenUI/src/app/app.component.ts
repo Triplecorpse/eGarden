@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SocketConnectionService} from "./socket-connection.service";
+import {SocketConnectionService} from "./services/socket-connection.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {SocketConnectionService} from "./socket-connection.service";
 })
 export class AppComponent {
   constructor(public socketConnectionService: SocketConnectionService) {
-    socketConnectionService.startConnection().subscribe(data => {
+    socketConnectionService.getStream().subscribe(data => {
       console.log(data);
     })
   }

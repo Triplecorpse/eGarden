@@ -5,11 +5,7 @@ import * as Rx from 'rxjs/Rx';
 export class SocketConnectionService {
   private subject: Rx.Subject<MessageEvent>;
 
-  constructor() {
-  }
-
   private connect(): Rx.Subject<MessageEvent> {
-
     if (!this.subject) {
       this.subject = this.create();
       if (!this.subject.hasError) {
@@ -46,9 +42,13 @@ export class SocketConnectionService {
     return Rx.Subject.create(observer, observable);
   }
 
-  public startConnection() {
+  public getStream(): Rx.Observable<any> {
     return this.connect().map((response: MessageEvent) => {
         return JSON.parse(response.data);
       });
+  }
+
+  public emit(data) {
+    this.subject.next(data);
   }
 }

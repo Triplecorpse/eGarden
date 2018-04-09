@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const fileService = require('./../services/fileService');
 const clientService = require('./../services/clientService');
+const boardService = require('./../services/boardService');
 
 router.use('/api', require('./api'));
 
@@ -21,7 +22,7 @@ router.ws('/connect', (ws) => {
     ws.on('message', (msg) => {
         const message = JSON.parse(msg);
 
-        console.log(message);
+        boardService.changeColor(message);
     });
 
     ws.on('close', () => {

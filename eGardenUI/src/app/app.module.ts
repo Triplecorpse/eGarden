@@ -3,20 +3,23 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {UsbListComponent} from './usb-list/usb-list.component';
-import {MatButtonModule, MatTableModule} from "@angular/material";
-
+import {MatInputModule, MatFormFieldModule} from "@angular/material";
+import { LightComponent } from './light/light.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsbListComponent
+    LightComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    MatButtonModule,
-    MatTableModule
+    MatInputModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
