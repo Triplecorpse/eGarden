@@ -1,1 +1,29 @@
-<app-value-selector [label]="'Hue'" [gradient]="'linear-gradient(to right, #ff0000 0%, #ffff00 16.666%, #00ff00 33.333%, #00ffff 50%, #0000ff 66.667%, #ff00ff 83.333%, #ff0000 100%)'"></app-value-selector>
+<div class="row">
+  <div class="col-md-12">
+    <app-value-selector
+      [label]="'Hue'"
+      [gradient]="'linear-gradient(to right, #ff0000 0%, #ffff00 16.666%, #00ff00 33.333%, #00ffff 50%, #0000ff 66.667%, #ff00ff 83.333%, #ff0000 100%)'"
+      [name]="'hue'"
+      (input)="changeColor($event)">
+    </app-value-selector>
+  </div>
+  <div class="col-md-12">
+    <app-value-selector
+      [label]="'Saturation'"
+      [gradient]="saturationGradient"
+      [name]="'saturation'"
+      (input)="changeColor($event)">
+    </app-value-selector>
+  </div>
+  <div class="col-md-12">
+    <app-value-selector
+      [label]="'Lightness'"
+      [gradient]="lightnessGradient"
+      [name]="'lightness'"
+      (input)="changeColor($event)">
+    </app-value-selector>
+  </div>
+  <div class="col-md-12">
+    <div class="sample" [ngStyle]="{background: color}"></div>
+  </div>
+</div>
