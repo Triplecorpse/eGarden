@@ -139,13 +139,16 @@ function getColor() {
 
 
 function setLightColor(newColor) {
-    const colorObj = new Color(newColor).object();
-    const r = new five.Led(9);
-    const g = new five.Led(10);
-    const b = new five.Led(11);
-    r.brightness(255 - colorObj.r);
-    g.brightness(255 - colorObj.g);
-    b.brightness(255 - colorObj.b);
+    return;
+    const rgb = new five.Led.RGB({
+        pins: {
+            red: 9,
+            green: 10,
+            blue: 11
+        },
+        isAnode: true
+    });
+    rgb.color(newColor);
 }
 
 module.exports = {setLightColor};

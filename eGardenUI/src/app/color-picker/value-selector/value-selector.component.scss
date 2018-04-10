@@ -1,0 +1,16 @@
+.picker {
+  height: 20px;
+  border: 1px solid black;
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__pointer {
+    position: absolute;
+    height: calc(100% - 2px);
+    width: 2px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+  }
+}
