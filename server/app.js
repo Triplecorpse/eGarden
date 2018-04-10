@@ -9,7 +9,7 @@ const expressWs = require('express-ws')(app);
 const boardService = require('./services/boardService');
 
 app.use('/', require('./routes/'));
-app.use(express.static('./eGardenUI/dist'));
+app.use(express.static('./../eGardenUI/dist'));
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

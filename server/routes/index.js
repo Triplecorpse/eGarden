@@ -6,7 +6,7 @@ const boardService = require('./../services/boardService');
 router.use('/api', require('./api'));
 
 router.get('/', function (req, res) {
-    fileService.readFile('./eGardenUI/dist/index.html')
+    fileService.readFile('./../eGardenUI/dist/index.html')
         .then(data => {
             res.send(data);
         })
@@ -22,7 +22,7 @@ router.ws('/connect', (ws) => {
     ws.on('message', (msg) => {
         const message = JSON.parse(msg);
 
-        boardService.changeColor(message);
+        boardService.setLightColor(message);
     });
 
     ws.on('close', () => {

@@ -1,12 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {SocketConnectionService} from "../services/socket-connection.service";
 import {Subject} from "rxjs/Subject";
-
-interface color {
-  r: string,
-  g: string,
-  b: string
-}
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-light',
@@ -14,30 +9,37 @@ interface color {
   styleUrls: ['./light.component.scss']
 })
 export class LightComponent implements OnInit {
-  private color: color = {
-    r: 'ff',
-    g: 'ff',
-    b: 'ff'
-  };
-  private colorStr: string = 'FFFFFF';
+  private color: string = 'ffffff';
+  private gradient: string;
+  private position: number = 0;
 
-  constructor(public socketConnectionService: SocketConnectionService) {
+  constructor(public socketConnectionService: SocketConnectionService, @Inject(DOCUMENT) private document: Document) {
+    socketConnectionService.getStream().subscribe(data => {
+      if (data.header === 'Color') {
+        this.color = data.body;
+        this.document.body.style['background-color'] = data.body;
+      } else if (data.header === 'Gradient') {
+        this.gradient = data.body;
+      } else if (data.header === 'Position') {
+        this.position = data.body;
+      }
+    })
   }
 
   onColorChange($event, c) {
-    this.color[c] = $event.value.toString(16);;
-    if (this.color.r.length === 1) {
-      this.color.r += '0';
-    }
-    if (this.color.g.length === 1) {
-      this.color.g += '0';
-    }
-    if (this.color.b.length === 1) {
-      this.color.b += '0';
-    }
-    const str = this.color.r + this.color.g + this.color.b;
+    // this.color[c] = $event.value.toString(16);;
+    // if (this.color.r.length === 1) {
+    //   this.color.r += '0';
+    // }
+    // if (this.color.g.length === 1) {
+    //   this.color.g += '0';
+    // }
+    // if (this.color.b.length === 1) {
+    //   this.color.b += '0';
+    // }
+    // const str = this.color.r + this.color.g + this.color.b;
 
-    this.socketConnectionService.emit(str);
+    // this.socketConnectionService.emit(str);
   }
 
   ngOnInit() {

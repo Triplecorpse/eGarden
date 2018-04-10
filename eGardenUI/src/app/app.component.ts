@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {SocketConnectionService} from "./services/socket-connection.service";
 
 @Component({
@@ -8,10 +8,4 @@ import {SocketConnectionService} from "./services/socket-connection.service";
   providers: [SocketConnectionService]
 })
 export class AppComponent {
-  constructor(public socketConnectionService: SocketConnectionService) {
-    socketConnectionService.getStream().subscribe(data => {
-      console.log(data);
-    })
-  }
-  title = 'app';
 }

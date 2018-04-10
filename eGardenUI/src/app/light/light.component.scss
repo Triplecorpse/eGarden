@@ -1,0 +1,19 @@
+.gradient {
+  height: 50px;
+  position: relative;
+  border: 1px solid black;
+
+  & .pointer {
+    height: 100%;
+    width: 1px;
+    background-color: #000000;
+    position: absolute;
+    border: 1px solid white;
+  }
+}
+
+.color-display {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid white;
+}
