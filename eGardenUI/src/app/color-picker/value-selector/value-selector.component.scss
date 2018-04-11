@@ -8,9 +8,10 @@
 
   &__pointer {
     position: absolute;
-    height: calc(100% - 2px);
+    height: calc(100% + 10px);
     width: 2px;
-    background-color: #ffffff;
-    border: 1px solid #000000;
+    background-color: #000000;
+    transform: translateY(-50%);
+    top: 50%;
   }
 }

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const fileService = require('./../services/fileService');
 const clientService = require('./../services/clientService');
 const boardService = require('./../services/boardService');
+const Message = require('./../models/Message');
 
 router.use('/api', require('./api'));
 
@@ -16,13 +17,16 @@ router.get('/', function (req, res) {
 });
 
 router.ws('/connect', (ws) => {
-    ws.send('{"status": "connected"}');
+    const message = new Message({header: 'connection', status: 'success', body: 'Connection established'});
+    ws.send(JSON.stringify(message));
     clientService.addClient(ws.upgradeReq.headers['sec-websocket-key'], ws);
 
     ws.on('message', (msg) => {
         const message = JSON.parse(msg);
 
-        boardService.setLightColor(message);
+        console.log(message);
+
+        // boardService.setLightColor(message);
     });
 
     ws.on('close', () => {

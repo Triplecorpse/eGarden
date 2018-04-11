@@ -3,12 +3,14 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {MatInputModule, MatFormFieldModule, MatSliderModule, GestureConfig} from "@angular/material";
-import { LightComponent } from './light/light.component';
+import {
+  MatInputModule, MatFormFieldModule, GestureConfig, MatCardModule, MatMenuModule, MatButtonModule
+} from "@angular/material";
+import {LightComponent} from './light/light.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule} from "@angular/forms";
-import { ColorPickerComponent } from './color-picker/color-picker.component';
-import { ValueSelectorComponent } from './color-picker/value-selector/value-selector.component';
+import {ColorPickerComponent} from './color-picker/color-picker.component';
+import {ValueSelectorComponent} from './color-picker/value-selector/value-selector.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import { ValueSelectorComponent } from './color-picker/value-selector/value-sele
     MatFormFieldModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatSliderModule
+    MatCardModule,
+    MatMenuModule,
+    MatButtonModule
   ],
-  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
+  providers: [{provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

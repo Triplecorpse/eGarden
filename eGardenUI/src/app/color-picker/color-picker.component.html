@@ -1,29 +1,69 @@
-<div class="row">
-  <div class="col-md-12">
-    <app-value-selector
-      [label]="'Hue'"
-      [gradient]="'linear-gradient(to right, #ff0000 0%, #ffff00 16.666%, #00ff00 33.333%, #00ffff 50%, #0000ff 66.667%, #ff00ff 83.333%, #ff0000 100%)'"
-      [name]="'hue'"
-      (input)="changeColor($event)">
-    </app-value-selector>
-  </div>
-  <div class="col-md-12">
-    <app-value-selector
-      [label]="'Saturation'"
-      [gradient]="saturationGradient"
-      [name]="'saturation'"
-      (input)="changeColor($event)">
-    </app-value-selector>
-  </div>
-  <div class="col-md-12">
-    <app-value-selector
-      [label]="'Lightness'"
-      [gradient]="lightnessGradient"
-      [name]="'lightness'"
-      (input)="changeColor($event)">
-    </app-value-selector>
-  </div>
-  <div class="col-md-12">
-    <div class="sample" [ngStyle]="{background: color}"></div>
-  </div>
-</div>
+<mat-card>
+  <mat-card-title>
+    Light testing
+  </mat-card-title>
+  <mat-card-subtitle>
+    Module for testing lights
+  </mat-card-subtitle>
+  <hr>
+  <form>
+    <div class="row">
+
+      <div class="col-md-2 slider">
+        Hue: {{hue.toFixed(0)}}°
+      </div>
+      <div class="col-md-10 slider">
+        <app-value-selector
+          [gradient]="'linear-gradient(to right, #ff0000 0%, #ffff00 16.666%, #00ff00 33.333%, #00ffff 50%, #0000ff 66.667%, #ff00ff 83.333%, #ff0000 100%)'"
+          name="hue"
+          (input)="changeColor($event)"
+          [(ngModel)]="hue"
+          [min]="0"
+          [max]="360"
+          [step]="1">
+        </app-value-selector>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 slider">
+        Saturation: {{saturation}}%
+      </div>
+      <div class="col-md-10 slider">
+        <app-value-selector
+          [gradient]="saturationGradient"
+          name="saturation"
+          (input)="changeColor($event)"
+          [(ngModel)]="saturation"
+          [min]="0"
+          [max]="100"
+          [step]="1">
+        </app-value-selector>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 slider">
+        Lightness: {{lightness}}%
+      </div>
+      <div class="col-md-10 slider">
+        <app-value-selector
+          [gradient]="lightnessGradient"
+          name="lightness"
+          (input)="changeColor($event)"
+          [(ngModel)]="lightness"
+          [min]="0"
+          [max]="100"
+          [step]="1">
+        </app-value-selector>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-2 slider">
+        Sample ({{colorRGB}})
+      </div>
+      <div class="col-md-10 slider">
+        <div class="sample" [style.background-color]="color"></div>
+      </div>
+    </div>
+  </form>
+</mat-card>

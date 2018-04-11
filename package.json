@@ -4,7 +4,6 @@
   "description": "Automatic Garden Machine Engine",
   "main": "app.js",
   "dependencies": {
-    "@angular/core": "^5.2.4",
     "color": "^3.0.0",
     "express": "^4.16.2",
     "express-ws": "^3.0.0",
