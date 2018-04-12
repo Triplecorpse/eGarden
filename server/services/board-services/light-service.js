@@ -14,5 +14,8 @@ module.exports = {
         if (!rgb) {
             rgb = value;
         }
+    },
+    get rgb() {
+        return rgb;
     }
 };
