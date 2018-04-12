@@ -17,16 +17,14 @@ function boardState(success) {
     console.log('Board init success:', success);
     color = getColor();
     if (success) {
-        if (!lightService.rgb) {
-            lightService.rgb = new five.Led.RGB({
-                pins: {
-                    red: 9,
-                    green: 10,
-                    blue: 11
-                },
-                isAnode: true
-            });
-        }
+        lightService.rgb = new five.Led.RGB({
+            pins: {
+                red: 9,
+                green: 10,
+                blue: 11
+            },
+            isAnode: true
+        });
         lightService.light = color;
     }
     console.log('Color to be set:', color);

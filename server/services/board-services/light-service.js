@@ -10,5 +10,9 @@ module.exports = {
     get state() {
         return state;
     },
-    rgb
+    set rgb(value) {
+        if (!rgb) {
+            rgb = value;
+        }
+    }
 };
