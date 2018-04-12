@@ -1,21 +1,28 @@
-<form>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="gradient" [ngStyle]="{background: gradient}">
-        <div class="pointer" [ngStyle]="{left: position * 100 + '%'}"></div>
+<mat-card>
+  <mat-card-title>
+    Light display
+  </mat-card-title>
+  <mat-card-subtitle>
+    Displays light schedule and current status
+  </mat-card-subtitle>
+  <hr>
+  <form>
+    <div class="row">
+      <div class="col-md-2 slider">
+        Schedule ({{position.toFixed()}}%)
+      </div>
+      <div class="col-md-10 slider">
+        <app-value-selector [(ngModel)]="position" [min]="0" [max]="100" disabled name="scheduler" [gradient]="gradient"></app-value-selector>
       </div>
     </div>
-    <h3 class="color-display">{{color}}</h3>
-    <!--<div class="col-md-4">-->
-      <!--<div>-->
-        <!--<mat-slider class="color-red" (input)="onColorChange($event, 'r')" min="0" max="255" step="1" #red></mat-slider>-->
-      <!--</div>-->
-      <!--<div>-->
-        <!--<mat-slider class="color-red" (input)="onColorChange($event, 'g')" min="0" max="255" step="1" #green></mat-slider>-->
-      <!--</div>-->
-      <!--<div>-->
-        <!--<mat-slider class="color-red" (input)="onColorChange($event, 'b')" min="0" max="255" step="1" #blue></mat-slider>-->
-      <!--</div>-->
-    <!--</div>-->
-  </div>
-</form>
+    <hr>
+    <div class="row">
+      <div class="col-md-2 slider">
+        Sample ({{color}})
+      </div>
+      <div class="col-md-10 slider">
+        <div class="sample" [style.background-color]="color"></div>
+      </div>
+    </div>
+  </form>
+</mat-card>

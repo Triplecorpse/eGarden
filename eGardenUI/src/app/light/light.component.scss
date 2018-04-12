@@ -1,19 +1,14 @@
-.gradient {
-  height: 50px;
+.sample {
+  height: 20px;
   position: relative;
-  border: 1px solid black;
+  border: 1px solid #000000;
 
-  & .pointer {
-    height: 100%;
-    width: 1px;
-    background-color: #000000;
+  .pointer {
+    width: 2px;
     position: absolute;
-    border: 1px solid white;
+    transform: translateY(-50%);
+    top: 50%;
+    height: calc(100% + 10px);
+    background-color: #000000;
   }
-}
-
-.color-display {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid white;
 }

@@ -6,7 +6,7 @@ const port = process.env.port || config.port;
 
 const expressWs = require('express-ws')(app);
 
-const boardService = require('./services/boardService');
+const boardService = require('./services/board-services/board-service');
 
 app.use('/', require('./routes/'));
 app.use(express.static('./eGardenUI/dist'));

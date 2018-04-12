@@ -1,6 +1,5 @@
 import {
-  Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output,
-  Renderer2, ViewChild
+  Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -30,11 +29,18 @@ export class ValueSelectorComponent implements OnInit, ControlValueAccessor {
   @Input() step?: number;
   @Output() input: EventEmitter<iCustomEvent> = new EventEmitter();
   private innerModel: number;
+  private isDisabled: boolean;
   public onChange: any;
+  public onTouched: any;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+  constructor(private elementRef: ElementRef) {
+  }
 
   selectValue(event) {
+    if (this.isDisabled) {
+      return
+    }
+
     if ((event.type === 'click' || (event.type === 'mousemove' && event.buttons === 1)) && !event.target.className.includes('picker__pointer')) {
       const relation = event.offsetX / event.target.offsetWidth;
       const rawValue = relation * (this.max - this.min);
@@ -50,7 +56,7 @@ export class ValueSelectorComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  get pointerLeft() : number {
+  get pointerLeft(): number {
     const range = this.max - this.min;
     const value = this.innerModel - this.min;
 
@@ -60,14 +66,17 @@ export class ValueSelectorComponent implements OnInit, ControlValueAccessor {
   writeValue(value: number): void {
     this.innerModel = value;
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
-    // this.onTouched = fn;
+    this.onTouched = fn;
   }
+
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
+    this.isDisabled = isDisabled;
   }
 
   ngOnInit() {
@@ -83,5 +92,4 @@ export class ValueSelectorComponent implements OnInit, ControlValueAccessor {
       this.step = 1;
     }
   }
-
 }

@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const fileService = require('./../services/fileService');
-const clientService = require('./../services/clientService');
-const boardService = require('./../services/boardService');
+const fileService = require('../services/file-service');
+const clientService = require('../services/client-service');
+const boardService = require('../services/board-services/board-service');
 const Message = require('./../models/Message');
+const tinygradient = require("tinygradient");
 
 router.use('/api', require('./api'));
 
@@ -18,7 +19,15 @@ router.get('/', function (req, res) {
 
 router.ws('/connect', (ws) => {
     const message = new Message({header: 'connection', status: 'success', body: 'Connection established'});
+    const light = new Message({header: 'color', status: 'success', body: boardService.light});
+    const gradient = new Message({header: 'gradient', status: 'success', body: tinygradient(boardService.schedule).css()});
+    const dayPos = new Message({header: 'position', status: 'success', body: boardService.dayPos.toString()});
+
     ws.send(JSON.stringify(message));
+    ws.send(JSON.stringify(gradient));
+    ws.send(JSON.stringify(dayPos));
+    ws.send(JSON.stringify(light));
+
     clientService.addClient(ws.upgradeReq.headers['sec-websocket-key'], ws);
 
     ws.on('message', (msg) => {

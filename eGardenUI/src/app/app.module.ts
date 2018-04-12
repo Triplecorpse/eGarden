@@ -10,7 +10,7 @@ import {LightComponent} from './light/light.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule} from "@angular/forms";
 import {ColorPickerComponent} from './color-picker/color-picker.component';
-import {ValueSelectorComponent} from './color-picker/value-selector/value-selector.component';
+import {ValueSelectorComponent} from './value-selector/value-selector.component';
 
 @NgModule({
   declarations: [
