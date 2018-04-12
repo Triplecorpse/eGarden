@@ -1,9 +1,11 @@
 const five = require('johnny-five');
+const board = new five.Board();
 const state = {};
+let rgb;
 
-module.exports = {
-    set light(value) {
-        const rgb = new five.Led.RGB({
+board
+    .on('ready', () => {
+        rgb = new five.Led.RGB({
             pins: {
                 red: 9,
                 green: 10,
@@ -11,6 +13,11 @@ module.exports = {
             },
             isAnode: true
         });
+        rgb.color('#00ff00');
+    });
+
+module.exports = {
+    set light(value) {
         rgb.color(value);
         state.light = value;
     },

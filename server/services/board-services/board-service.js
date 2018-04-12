@@ -7,6 +7,7 @@ const scheduleService = require('../schedule-service');
 const lightService = require('./light-service');
 let lightInterval;
 let color;
+let rgb;
 
 board
     .on('ready', () => boardState(true))
@@ -17,9 +18,8 @@ function boardState(success) {
     color = getColor();
     if (success) {
         lightService.light = color;
-    } else {
-        console.log('Color to be set:', color);
     }
+    console.log('Color to be set:', color);
     sendFrontendData(color);
     lightInterval = setTimeout(boardState, 60 * 1000, success);
 }
