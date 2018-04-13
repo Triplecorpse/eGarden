@@ -16,7 +16,7 @@ export class ColorPickerComponent implements OnInit {
   private lightnessGradient: string = `linear-gradient(to right, hsl(${this.hue}, 100%, 0%) 0%, hsl(${this.hue}, 100%, 50%) 50%, hsl(${this.hue}, 100%, 100%) 100%)`;
   private color: string = `hsl(${this.hue}, ${this.saturation}%, ${this.lightness}%)`;
   private colorRGB: string = tinyColor(this.color).toHexString();
-  public whitepoint: string = '#ff8585';
+  public whitepoint: string = '#ff50b0';
 
   constructor(public socketConnectionService: SocketConnectionService) {
     socketConnectionService.getStream().subscribe(message => {
