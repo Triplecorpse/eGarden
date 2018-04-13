@@ -28,7 +28,6 @@ function getLightMap() {
 
         return {pos, color: item.light}
     });
-
 }
 
 module.exports = {

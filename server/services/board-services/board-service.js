@@ -7,7 +7,6 @@ const scheduleService = require('../schedule-service');
 const lightService = require('./light-service');
 let lightInterval;
 let color;
-let rgb;
 
 board
     .on('ready', () => boardState(true))
@@ -62,4 +61,25 @@ function getColor() {
     return gradient.rgbAt(dayPos).toHexString();
 }
 
-module.exports = {get light() {return color}, schedule: scheduleService.lightMap, dayPos: scheduleService.dayPos};
+const light = {
+    stop() {
+        clearTimeout(lightInterval)
+    },
+    start() {
+        try {
+            boardState(true)
+        } catch(e) {
+            clearTimeout(lightInterval)
+            boardState(false)
+        }
+    },
+    set(color) {
+        try {
+            sendFrontendData(color);
+        } catch(e) {
+            console.error('Light cannot be set', e);
+        }
+    }
+};
+
+module.exports = {get lightColor() {return color}, schedule: scheduleService.lightMap, dayPos: scheduleService.dayPos, light};
