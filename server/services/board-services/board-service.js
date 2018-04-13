@@ -63,19 +63,23 @@ function getColor() {
 
 const light = {
     stop() {
-        clearTimeout(lightInterval)
+        clearTimeout(lightInterval);
+        console.log('Light switching interrupted...');
     },
     start() {
         try {
-            boardState(true)
+            boardState(true);
+            console.log('Light switching interrupted...');
         } catch(e) {
-            clearTimeout(lightInterval)
+            console.log('An error occurred when starting lights, emulation run instead');
+            clearTimeout(lightInterval);
             boardState(false)
         }
     },
     set(color) {
         try {
             sendFrontendData(color);
+            console.log('Light was set to', color);
         } catch(e) {
             console.error('Light cannot be set', e);
         }
