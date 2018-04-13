@@ -5,12 +5,17 @@ const Message = require('../../models/Message');
 const tinygradient = require("tinygradient");
 const scheduleService = require('../schedule-service');
 const lightService = require('./light-service');
+const e = require('./../events-service');
 let lightInterval;
 let color;
 
-board
-    .on('ready', () => boardState(true))
-    .on('fail', () => boardState(false));
+e.on('server:config-update', data => {
+    if (data.success && !lightInterval) {
+        board
+            .on('ready', () => boardState(true))
+            .on('fail', () => boardState(false));
+    }
+});
 
 function boardState(success, color) {
     console.log('Board init success:', success);
@@ -78,7 +83,7 @@ const light = {
     },
     set(color) {
         try {
-            boardState(true, color);
+            lightService.light = color;
             clearTimeout(lightInterval);
             console.log('Light was set to', color);
         } catch(e) {

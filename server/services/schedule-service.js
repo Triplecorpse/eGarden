@@ -1,19 +1,5 @@
 const Moment = require('moment');
-
-let schedule = [
-    {time: '00:00', light: '#000000'},
-    {time: '04:00', light: '#000000'},
-    {time: '04:30', light: '#220080'},
-    {time: '05:00', light: '#ff8585'},
-    {time: '06:00', light: '#eeb639'},
-    {time: '10:00', light: '#ffffff'},
-    {time: '15:00', light: '#ffffff'},
-    {time: '18:00', light: '#eeb639'},
-    {time: '20:00', light: '#ff8585'},
-    {time: '22:00', light: '#2d2d87'},
-    {time: '22:30', light: '#000000'},
-    {time: '24:00', light: '#000000'},
-];
+const settingsService = require('./settings-service');
 
 function getDayPosition() {
     const moment = new Moment();
@@ -23,6 +9,11 @@ function getDayPosition() {
 }
 
 function getLightMap() {
+    if (!settingsService.config) {
+        return [];
+    }
+    const schedule = settingsService.config.schedule;
+
     return schedule.map(item => {
         const pos = Moment.duration(item.time, 'HH:mm').asMinutes() / 1440;
 
