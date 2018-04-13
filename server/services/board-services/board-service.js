@@ -12,9 +12,9 @@ board
     .on('ready', () => boardState(true))
     .on('fail', () => boardState(false));
 
-function boardState(success) {
+function boardState(success, color) {
     console.log('Board init success:', success);
-    color = getColor();
+    color = color || getColor();
     if (success) {
         if (!lightService.rgb) {
             lightService.rgb = new five.Led.RGB({
@@ -78,7 +78,8 @@ const light = {
     },
     set(color) {
         try {
-            sendFrontendData(color);
+            boardState(true, color);
+            clearTimeout(lightInterval);
             console.log('Light was set to', color);
         } catch(e) {
             console.error('Light cannot be set', e);
