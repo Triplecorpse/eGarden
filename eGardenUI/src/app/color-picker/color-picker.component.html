@@ -6,9 +6,19 @@
     Module for testing lights
   </mat-card-subtitle>
   <hr>
+  <div class="row">
+    <div class="col-md-2">
+      Manual input
+    </div>
+    <div class="col-md-10">
+      <form action="">
+        <input type="text" [(ngModel)]="colorRGB" name="hexColor" (change)="send()">
+      </form>
+    </div>
+  </div>
+  <hr>
   <form>
     <div class="row">
-
       <div class="col-md-2 slider">
         Hue: {{hue.toFixed(0)}}°
       </div>

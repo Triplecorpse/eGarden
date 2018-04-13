@@ -31,6 +31,10 @@ export class ColorPickerComponent implements OnInit {
 
     this.color = `hsl(${this.hue}, ${this.saturation}%, ${this.lightness}%)`;
     this.colorRGB = tinyColor(this.color).toHexString();
+    this.send();
+  }
+
+  send() {
     this.socketConnectionService.emit({
       header: 'color',
       body: this.colorRGB
