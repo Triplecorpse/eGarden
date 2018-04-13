@@ -6,7 +6,8 @@ let rgb;
 
 module.exports = {
     set light(value) {
-        rgb.color(tinycolor.mix(value, '#ff0000', amount = 40).toHexString());
+        // rgb.color(tinycolor.mix(value, '#ff0000', amount = 40).toHexString());
+        rgb.color(value);
         state.light = value;
     },
     get state() {
