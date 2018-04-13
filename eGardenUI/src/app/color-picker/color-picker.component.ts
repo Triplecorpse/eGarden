@@ -16,6 +16,7 @@ export class ColorPickerComponent implements OnInit {
   private lightnessGradient: string = `linear-gradient(to right, hsl(${this.hue}, 100%, 0%) 0%, hsl(${this.hue}, 100%, 50%) 50%, hsl(${this.hue}, 100%, 100%) 100%)`;
   private color: string = `hsl(${this.hue}, ${this.saturation}%, ${this.lightness}%)`;
   private colorRGB: string = tinyColor(this.color).toHexString();
+  public whitepoint: string = '#ff8585';
 
   constructor(public socketConnectionService: SocketConnectionService) {
     socketConnectionService.getStream().subscribe(message => {
@@ -34,10 +35,22 @@ export class ColorPickerComponent implements OnInit {
     this.send();
   }
 
+  getRatOf255(value) {
+    return value / 255;
+  }
+
   send() {
+    const whitep = tinyColor(this.whitepoint).toRgb();
+    const realc = tinyColor(this.colorRGB).toRgb();
+    const colorModel = tinyColor.fromRatio({
+      r: realc.r * this.getRatOf255(whitep.r),
+      g: realc.g * this.getRatOf255(whitep.g),
+      b: realc.b * this.getRatOf255(whitep.b)
+    });
+    console.log(whitep, realc, colorModel.toHexString());
     this.socketConnectionService.emit({
       header: 'color',
-      body: this.colorRGB
+      body: colorModel.toHexString()
     });
   }
 

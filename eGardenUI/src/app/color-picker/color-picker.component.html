@@ -6,16 +6,28 @@
     Module for testing lights
   </mat-card-subtitle>
   <hr>
-  <div class="row">
-    <div class="col-md-2">
-      Manual input
+  <form action="">
+    <div class="row">
+      <div class="col-md-2">
+        White point (def. #ff8585)
+      </div>
+      <div class="col-md-10">
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="whitepoint" name="wpHexColor" (change)="send()" placeholder="Whitepoint">
+        </mat-form-field>
+      </div>
     </div>
-    <div class="col-md-10">
-      <form action="">
-        <input type="text" [(ngModel)]="colorRGB" name="hexColor" (change)="send()">
-      </form>
+    <div class="row">
+      <div class="col-md-2">
+        Manual input
+      </div>
+      <div class="col-md-10">
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="colorRGB" name="hexColor" (change)="send()" placeholder="Desired value">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
+  </form>
   <hr>
   <form>
     <div class="row">
