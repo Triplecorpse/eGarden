@@ -1,4 +1,5 @@
 const fs = require('fs');
+const log = require('./log-service');
 
 function readFile(path) {
     return new Promise (executor);
@@ -7,8 +8,10 @@ function readFile(path) {
         fs.readFile(path, 'UTF8', (err, data) => {
             if (err) {
                 reject(err);
+                log.error(`Error reading file ${path}`, err);
             } else {
                 resolve(data);
+                log.info(`File ${path} was read successfully`);
             }
         });
     }

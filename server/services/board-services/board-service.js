@@ -1,3 +1,5 @@
+// Public API for board communication
+
 const five = require('johnny-five');
 const board = new five.Board();
 const clientService = require('../client-service');
@@ -6,34 +8,40 @@ const tinygradient = require("tinygradient");
 const scheduleService = require('../schedule-service');
 const lightService = require('./light-service');
 const e = require('./../events-service');
+const log = require('./../log-service');
 let lightInterval;
 let color;
 
 e.on('server:config-update', data => {
     if (data.success && !lightInterval) {
         board
-            .on('ready', () => boardState(true))
-            .on('fail', () => boardState(false));
+            .on('ready', (e) => {
+                lightService.rgb = new five.Led.RGB({
+                    pins: {
+                        red: 9,
+                        green: 10,
+                        blue: 11
+                    },
+                    isAnode: true
+                });
+                log.info('Board init succeeded:', e);
+                boardState(true);
+            })
+            .on('fail', (e) => {
+                log.error('Board init failed, run emulation instead:', e);
+                boardState(false);
+            });
     }
 });
 
-function boardState(success, color) {
-    console.log('Board init success:', success);
+function boardState(success) {
     color = color || getColor();
+    log.info('Color to be set:', color);
     if (success) {
-        if (!lightService.rgb) {
-            lightService.rgb = new five.Led.RGB({
-                pins: {
-                    red: 9,
-                    green: 10,
-                    blue: 11
-                },
-                isAnode: true
-            });
-        }
         lightService.light = color;
+    } else {
+        log.info('IS EMULATED');
     }
-    console.log('Color to be set:', color);
     sendFrontendData(color);
     lightInterval = setTimeout(boardState, 60 * 1000, success);
 }
@@ -67,15 +75,15 @@ function getColor() {
 }
 
 const light = {
-    stop() {
+    stop(reason) {
         clearTimeout(lightInterval);
-        console.log('Light switching interrupted...');
+        log.info('Light switching interrupted', reason);
     },
-    start() {
-        try {
+    start(reason) {
+        if (board.isReady) {
             boardState(true);
-            console.log('Light switching interrupted...');
-        } catch(e) {
+            console.log('Light switching renewed', reason);
+        } else {
             console.log('An error occurred when starting lights, emulation run instead');
             clearTimeout(lightInterval);
             boardState(false)
@@ -86,10 +94,17 @@ const light = {
             lightService.light = color;
             clearTimeout(lightInterval);
             console.log('Light was set to', color);
-        } catch(e) {
+        } catch (e) {
             console.error('Light cannot be set', e);
         }
+    },
+    get() {
+        return color
     }
 };
 
-module.exports = {get lightColor() {return color}, schedule: scheduleService.lightMap, dayPos: scheduleService.dayPos, light};
+module.exports = {
+    schedule: scheduleService.lightMap,
+    dayPos: scheduleService.dayPos,
+    light
+};

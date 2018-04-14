@@ -1,16 +1,15 @@
 const express = require('express');
 const config = require('./config');
-
+const log = require('./services/log-service');
 const app = express();
 const port = process.env.port || config.port;
 
-const expressWs = require('express-ws')(app);
-
-const boardService = require('./services/board-services/board-service');
+require('express-ws')(app);
 
 app.use('/', require('./routes/'));
 app.use(express.static('./eGardenUI/dist'));
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
+    log.info(`Server started on port ${port}`);
 });

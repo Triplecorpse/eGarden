@@ -1,5 +1,10 @@
+// Private API for board-service
+// Not recommended to call from elsewhere
+// Service for handle board's lights
+
 const config = require('./../settings-service');
 const tinycolor = require('tinycolor2');
+const log = require('./../log-service');
 const state = {};
 let rgb;
 
@@ -13,8 +18,16 @@ function handlewp(color, whitepoint) {
 
 module.exports = {
     set light(value) {
-        rgb.color(handlewp(value, config.config.whitepoint));
-        state.light = value;
+        const whitepoint = config.config.whitepoint;
+        const color = handlewp(value, whitepoint);
+
+        if (rgb) {
+            rgb.color(color);
+            state.light = value;
+            log.info(`Board light set to ${color}: real value is ${value}, whitepoint is ${whitepoint}`);
+        } else {
+            log.error(`Board light failed to set to ${color}: real value was ${value}, whitepoint was ${whitepoint}. Reason - no rgb object identified`);
+        }
     },
     get state() {
         return state;
@@ -22,9 +35,11 @@ module.exports = {
     set rgb(value) {
         if (!rgb) {
             rgb = value;
+            log.info('RGB object was set', value);
+        } else {
+            log.error('Somebody wanted to set RGB object but it have been already set.');
+            log.error('Desired value', value);
+            log.error('Existed value', rgb);
         }
-    },
-    get rgb() {
-        return rgb;
     }
 };

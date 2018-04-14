@@ -1,16 +1,21 @@
 const clients = {};
+const fs = require('fs');
+const Log = require('log');
+const log = new Log('info', fs.createWriteStream('my.messages.log'));
 
 function addClient(key, ws) {
     clients[key] = ws;
-    console.log(`NEW CLIENT: registered ${key} at ${new Date()}`);
+    log.info(`NEW CLIENT: registered ${key} at ${new Date()}`);
 }
 
 function removeClient(key) {
     delete clients[key];
-    console.log(`REMOVED CLIENT: unregistered ${key} at ${new Date()}`);
+    log.info(`REMOVED CLIENT: unregistered ${key} at ${new Date()}`);
 }
 
-function sendToAll(message) {
+function sendToAll(message, options) {
+    options = options || {};
+    log.info('Websocket message is to be sent', message);
     try {
         if (typeof message === 'object') {
             message = JSON.stringify(message);
@@ -23,9 +28,19 @@ function sendToAll(message) {
                 clients[key].send(message);
             }
         }
+
+        if (!clients.length) {
+            log.warning('NO CLIENT REGISTERED')
+        } else {
+            log.info(`SENT TO ${clients.length} CLIENTS`)
+        }
+
         return true;
     } catch (e) {
-        console.error('Couldn\'t send some messages', e);
+
+        log.error('Couldn\'t send some messages', e);
+
+
         return false;
     }
 }
