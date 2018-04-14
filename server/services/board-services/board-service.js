@@ -35,7 +35,7 @@ e.on('server:config-update', data => {
 });
 
 function boardState(success) {
-    color = color || getColor();
+    color = getColor();
     log.info('Color to be set:', color);
     if (success) {
         lightService.light = color;
