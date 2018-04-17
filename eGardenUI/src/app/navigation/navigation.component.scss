@@ -1,0 +1,10 @@
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &.active {
+    button {
+      background-color: #ddd;
+    }
+  }
+}
