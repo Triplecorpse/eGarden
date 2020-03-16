@@ -1,3 +1,4 @@
 node_modules
+dist
 .idea
-eGardenUI/node_modules
+.env

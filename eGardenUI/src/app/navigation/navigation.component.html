@@ -1,5 +1,0 @@
-<mat-card>
-  <a [routerLink]="navItem.href" routerLinkActive="active" (click)="beforeNavigate(navItem, $event)" *ngFor="let navItem of nav">
-    <button mat-button [disabled]="navItem.disabled">{{navItem.name}}</button>
-  </a>
-</mat-card>
