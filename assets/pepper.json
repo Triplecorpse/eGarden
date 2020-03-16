@@ -1,0 +1,17 @@
+{
+  "name": "pepper",
+  "version": "0.0.1",
+  "daylight": 10,
+  "temperature": {
+    "day": 25,
+    "night": 15
+  },
+  "humidity": {
+    "day": 25,
+    "night": 25
+  },
+  "soil": {
+    "day": 25,
+    "night": 25
+  }
+}
