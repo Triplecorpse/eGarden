@@ -1,16 +1,23 @@
 {
-  "name": "pepper",
+  "name": "Pepper",
   "version": "0.0.1",
-  "daylight": 10,
-  "temperature": {
+  "daylight": {
+    "start": "1970-01-01T00:06:00",
+    "end": "1970-01-01T00:20:00"
+  },
+  "airTemperature": {
     "day": 25,
     "night": 15
   },
-  "humidity": {
+  "soilTemperature": {
+    "day": 25,
+    "night": 15
+  },
+  "airHumidity": {
     "day": 25,
     "night": 25
   },
-  "soil": {
+  "soilHumidity": {
     "day": 25,
     "night": 25
   }
